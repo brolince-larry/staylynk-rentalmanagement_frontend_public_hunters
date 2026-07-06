@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 204">
+  <defs>
+    <linearGradient id="bg" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#3DABFF"/>
+      <stop offset="28%"  stop-color="#4455FF"/>
+      <stop offset="62%"  stop-color="#8833EE"/>
+      <stop offset="100%" stop-color="#AA22FF"/>
+    </linearGradient>
+  </defs>
+  <path fill="url(#bg)" d="M38,22 C26,7 60,0 100,3 C140,6 172,16 182,38 C196,58 192,84 183,104 C175,118 184,138 182,150 C190,168 186,186 162,188 C148,190 126,186 106,182 C96,192 74,200 62,196 C52,192 38,176 42,163 C14,153 8,126 8,113 C5,90 8,60 17,42 C22,28 30,20 38,22 Z"/>
+  <polygon points="100,64 57,99 143,99" fill="white"/>
+  <rect x="65" y="99" width="70" height="59" fill="white"/>
+  <rect x="86" y="107" width="12" height="12" rx="2" fill="#181830"/>
+  <rect x="102" y="107" width="12" height="12" rx="2" fill="#181830"/>
+  <rect x="86" y="123" width="12" height="12" rx="2" fill="#181830"/>
+  <rect x="102" y="123" width="12" height="12" rx="2" fill="#181830"/>
+  <path d="M91,158 L91,148 A9,9 0 0 0 109,148 L109,158 Z" fill="#181830"/>
+</svg>
