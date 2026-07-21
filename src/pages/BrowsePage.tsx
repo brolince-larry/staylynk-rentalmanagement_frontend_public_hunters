@@ -8,7 +8,9 @@ import { BrowseTopBar } from '../components/browse/BrowseTopBar';
 import { BrowseFilters } from '../components/browse/BrowseFilters';
 import { ListingCard } from '../components/shared/ListingCard';
 import { BrowseCardSkeleton } from '../components/shared/Skeletons';
-import { AISearchBox } from '../components/public/AISearchBox';
+// AI search box — disabled on the public frontend until v2, see PlainSearchBox.
+// import { AISearchBox } from '../components/public/AISearchBox';
+import { PlainSearchBox } from '../components/public/PlainSearchBox';
 import { Seo } from '../components/seo/Seo';
 import type { Listing } from '../types';
 import { toArray } from '../utils/collection';
@@ -36,7 +38,7 @@ export default function BrowsePage() {
     <div className="min-h-screen bg-slate-50 dark:bg-[#0d0d14]">
       <Seo
         title="Browse Verified Rentals | StayLynk"
-        description="Search verified rentals with AI suggestions, smart filters, map-aware discovery, and short video tours."
+        description="Search verified rentals with smart filters, map-aware discovery, and short video tours."
         canonicalPath="/browse"
         jsonLd={{
           '@context': 'https://schema.org',
@@ -92,12 +94,12 @@ export default function BrowsePage() {
         {/* Main results */}
         <main className="min-w-0 flex-1" id="results" aria-label="Property listings">
 
-          {/* AI search */}
+          {/* Search */}
           <section className="mb-5 overflow-hidden rounded-3xl bg-slate-950 p-4 shadow-xl dark:shadow-black/40 sm:p-5">
             <div className="mb-3 flex flex-wrap items-center justify-between gap-3 text-white">
               <div>
-                <p className="text-xs font-black uppercase text-white/45">Semantic search</p>
-                <h1 className="text-2xl font-black sm:text-3xl">Describe the home you want</h1>
+                <p className="text-xs font-black uppercase text-white/45">Search</p>
+                <h1 className="text-2xl font-black sm:text-3xl">Find your next home</h1>
               </div>
               <Link
                 to="/feed"
@@ -106,7 +108,7 @@ export default function BrowsePage() {
                 Watch short tours
               </Link>
             </div>
-            <AISearchBox compact />
+            <PlainSearchBox compact />
           </section>
 
           {/* Results header */}

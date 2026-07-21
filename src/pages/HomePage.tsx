@@ -1,11 +1,13 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, BadgeCheck, Building2, Clock, Heart, Map as MapIcon, Play, ShieldCheck, Sparkles, Star } from 'lucide-react';
+import { ArrowRight, BadgeCheck, Building2, Clock, Heart, Map as MapIcon, Play, Star } from 'lucide-react';
 import { useHomeData } from '../api/listingApi';
 import { useStore } from '../stores/listingStore';
 import { ListingCard } from '../components/shared/ListingCard';
 import { CardSkeleton } from '../components/shared/Skeletons';
-import { AISearchBox } from '../components/public/AISearchBox';
+// AI search box — disabled on the public frontend until v2, see PlainSearchBox.
+// import { AISearchBox } from '../components/public/AISearchBox';
+import { PlainSearchBox } from '../components/public/PlainSearchBox';
 import { Seo } from '../components/seo/Seo';
 import { PROPERTY_CATEGORY_OPTIONS } from '../constants/propertyTypes';
 import { toArray } from '../utils/collection';
@@ -27,8 +29,8 @@ export default function HomePage() {
   return (
     <main className="min-h-screen bg-[#f7f7f4] text-slate-950 dark:bg-[#0d0d14] dark:text-white">
       <Seo
-        title="StayLynk | AI House Hunting in Kenya"
-        description="Find verified rentals with AI search, short video tours, smart filters, maps, and viewing booking on StayLynk."
+        title="StayLynk | Verified House Hunting in Kenya"
+        description="Find verified rentals with smart search, short video tours, smart filters, maps, and viewing booking on StayLynk."
         jsonLd={{
           '@context': 'https://schema.org',
           '@type': 'WebSite',
@@ -50,14 +52,15 @@ export default function HomePage() {
 
         <div className="relative z-10 mx-auto grid min-h-[calc(100vh-4rem)] max-w-[1480px] items-center gap-10 px-4 py-12 sm:px-6 lg:grid-cols-[minmax(0,1fr)_420px] lg:px-8">
           <div className="max-w-4xl">
-            <motion.div
+            {/* AI-guided discovery badge — disabled until v2 */}
+            {/* <motion.div
               className="mb-5 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-3 py-1.5 text-xs font-black uppercase text-white/85 backdrop-blur"
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
             >
               <Sparkles size={13} />
               AI guided rental discovery
-            </motion.div>
+            </motion.div> */}
             <motion.h1
               className="max-w-4xl text-5xl font-black leading-[1.02] text-white sm:text-6xl lg:text-7xl"
               initial={{ opacity: 0, y: 18 }}
@@ -76,7 +79,7 @@ export default function HomePage() {
             </motion.p>
 
             <div className="mt-8 max-w-3xl">
-              <AISearchBox />
+              <PlainSearchBox />
             </div>
 
             <div className="mt-8 grid max-w-2xl grid-cols-3 gap-3">
@@ -201,7 +204,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ── AI search CTA ─────────────────────────────────────────────────────── */}
+      {/*
+        ── AI search CTA ──────────────────────────────────────────────────────
+        Disabled on the public frontend until v2 (AI is admin-only on the
+        backend for now). Restore this section once public AI search ships.
       <section className="mx-auto max-w-[1480px] px-4 py-10 sm:px-6 lg:px-8">
         <div className="overflow-hidden rounded-3xl bg-slate-950 p-6 text-white shadow-2xl shadow-slate-950/20 dark:shadow-black/50 sm:p-8">
           <div className="grid gap-8 lg:grid-cols-[1fr_420px] lg:items-center">
@@ -236,6 +242,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      */}
 
       {/* ── Testimonials ─────────────────────────────────────────────────────── */}
       <section className="mx-auto max-w-[1480px] px-4 pb-14 pt-6 sm:px-6 lg:px-8">

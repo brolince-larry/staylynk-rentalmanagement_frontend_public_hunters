@@ -22,6 +22,11 @@ const EXAMPLES = [
   'Pet friendly apartment with parking',
 ];
 
+// Gradual rollout: AI chat parsing is admin/superadmin only on the backend for
+// now, so skip straight to the client-side fallback (parse + /browse) instead
+// of round-tripping to a gated endpoint. Flip to true once AI is enabled here.
+const AI_SEARCH_ENABLED: boolean = false;
+
 interface AISearchBoxProps {
   compact?: boolean;
   className?: string;
@@ -46,6 +51,13 @@ export function AISearchBox({ compact = false, className = '' }: AISearchBoxProp
     setClarificationChips(null);
     setClarificationText(null);
     setIsSearching(true);
+
+    if (!AI_SEARCH_ENABLED) {
+      setFilters(parseNaturalLanguageSearch(prompt));
+      navigate('/browse');
+      setIsSearching(false);
+      return;
+    }
 
     try {
       // Step 1: parse intent via /ai/chat

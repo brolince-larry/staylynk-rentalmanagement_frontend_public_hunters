@@ -90,7 +90,7 @@ export function Navbar({ isAuthenticated, user }: NavbarProps) {
                 {theme === 'dark' ? <Sun size={17} /> : <Moon size={17} />}
               </button>
               <Link
-                to="/hunter"
+                to="/browse"
                 className="hidden h-9 items-center gap-2 rounded-lg border-2 border-slate-900 px-4 text-sm font-black text-slate-900 transition hover:bg-slate-900 hover:text-white dark:border-white/25 dark:text-white dark:hover:bg-white dark:hover:text-slate-950 sm:inline-flex"
               >
                 <Search size={15} />
@@ -147,7 +147,7 @@ export function Navbar({ isAuthenticated, user }: NavbarProps) {
           ))}
           <div className="mt-3 flex items-center gap-2">
             <Link
-              to="/hunter"
+              to="/browse"
               className="flex h-10 flex-1 items-center justify-center gap-2 rounded-lg border-2 border-slate-900 text-sm font-black text-slate-900 dark:border-white/20 dark:text-white"
               onClick={() => setMobileOpen(false)}
             >

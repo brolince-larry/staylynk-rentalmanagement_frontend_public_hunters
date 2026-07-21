@@ -19,14 +19,14 @@ const benefits = [
 
 export default function HowItWorksPage() {
   return (
-    <main className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white dark:bg-[#0d0d14]">
       <section className="mx-auto grid max-w-[1480px] items-center gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
         <div>
-          <span className="inline-flex rounded-full bg-blue-50 px-3 py-1 text-[11px] font-black uppercase text-blue-700">Simple, fast & reliable</span>
-          <h1 className="mt-5 max-w-3xl text-4xl font-black leading-tight text-slate-950 sm:text-5xl">
-            How <span className="text-blue-600">StayLynk</span> Works
+          <span className="inline-flex rounded-full bg-blue-50 px-3 py-1 text-[11px] font-black uppercase text-blue-700 dark:bg-violet-500/15 dark:text-violet-300">Simple, fast & reliable</span>
+          <h1 className="mt-5 max-w-3xl text-4xl font-black leading-tight text-slate-950 dark:text-white sm:text-5xl">
+            How <span className="text-blue-600 dark:text-violet-400">StayLynk</span> Works
           </h1>
-          <p className="mt-5 max-w-2xl text-base font-medium leading-7 text-slate-600">
+          <p className="mt-5 max-w-2xl text-base font-medium leading-7 text-slate-600 dark:text-white/50">
             Finding your perfect home has never been easier. We connect you with verified landlords and quality properties in minutes.
           </p>
         </div>
@@ -43,55 +43,55 @@ export default function HowItWorksPage() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
           {steps.map(step => (
             <article key={step.title} className="text-center">
-              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg shadow-blue-600/20">
+              <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-blue-600 text-white shadow-lg shadow-blue-600/20 dark:bg-violet-600 dark:shadow-violet-900/30">
                 {step.icon}
               </div>
-              <h2 className="mt-4 text-sm font-black text-slate-950">{step.title}</h2>
-              <p className="mx-auto mt-2 max-w-44 text-xs font-medium leading-5 text-slate-600">{step.text}</p>
+              <h2 className="mt-4 text-sm font-black text-slate-950 dark:text-white">{step.title}</h2>
+              <p className="mx-auto mt-2 max-w-44 text-xs font-medium leading-5 text-slate-600 dark:text-white/50">{step.text}</p>
             </article>
           ))}
         </div>
       </section>
 
       <section className="mx-auto max-w-[1480px] px-4 py-8 sm:px-6 lg:px-8">
-        <h2 className="mb-5 text-2xl font-black text-slate-950">Why Choose StayLynk?</h2>
+        <h2 className="mb-5 text-2xl font-black text-slate-950 dark:text-white">Why Choose StayLynk?</h2>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {benefits.map(benefit => (
-            <article key={benefit.title} className="rounded-lg border border-slate-200 bg-white p-6 text-center shadow-sm">
-              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-blue-600">{benefit.icon}</div>
-              <h3 className="mt-4 text-sm font-black text-slate-950">{benefit.title}</h3>
-              <p className="mt-2 text-xs font-medium leading-5 text-slate-600">{benefit.text}</p>
+            <article key={benefit.title} className="rounded-lg border border-slate-200 bg-white p-6 text-center shadow-sm dark:border-white/[0.07] dark:bg-[#141421]">
+              <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-blue-50 text-blue-600 dark:bg-violet-500/15 dark:text-violet-300">{benefit.icon}</div>
+              <h3 className="mt-4 text-sm font-black text-slate-950 dark:text-white">{benefit.title}</h3>
+              <p className="mt-2 text-xs font-medium leading-5 text-slate-600 dark:text-white/50">{benefit.text}</p>
             </article>
           ))}
         </div>
       </section>
 
       <section className="mx-auto max-w-[1480px] px-4 py-5 sm:px-6 lg:px-8">
-        <div className="grid gap-5 rounded-lg border border-amber-300 bg-amber-50 p-6 md:grid-cols-[0.9fr_1.1fr]">
+        <div className="grid gap-5 rounded-lg border border-amber-300 bg-amber-50 p-6 dark:border-amber-500/20 dark:bg-amber-900/10 md:grid-cols-[0.9fr_1.1fr]">
           <div className="flex gap-4">
-            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-white text-amber-600">
+            <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-white text-amber-600 dark:bg-white/[0.06] dark:text-amber-400">
               <ShieldCheck size={34} />
             </div>
             <div>
-              <h2 className="text-lg font-black text-slate-950">Your Safety is Our Priority</h2>
-              <p className="mt-2 text-sm font-black text-slate-700">Never make any payment before you:</p>
-              <ul className="mt-2 space-y-1 text-sm font-medium text-slate-700">
+              <h2 className="text-lg font-black text-slate-950 dark:text-white">Your Safety is Our Priority</h2>
+              <p className="mt-2 text-sm font-black text-slate-700 dark:text-white/70">Never make any payment before you:</p>
+              <ul className="mt-2 space-y-1 text-sm font-medium text-slate-700 dark:text-white/60">
                 <li>Verify the house</li>
                 <li>Visit the property</li>
                 <li>Agree with the landlord</li>
               </ul>
             </div>
           </div>
-          <div className="border-t border-amber-200 pt-5 md:border-l md:border-t-0 md:pl-6 md:pt-0">
-            <p className="text-sm font-black text-slate-950">StayLynk does not hold, collect, or process any payments between tenants and landlords.</p>
-            <p className="mt-2 text-sm font-medium leading-6 text-slate-700">We are not responsible for refunds, financial disputes, or financial convenience between users. All agreements are strictly between you and the landlord.</p>
-            <p className="mt-2 text-sm font-black text-slate-950">Stay safe. Stay smart.</p>
+          <div className="border-t border-amber-200 pt-5 dark:border-amber-500/20 md:border-l md:border-t-0 md:pl-6 md:pt-0">
+            <p className="text-sm font-black text-slate-950 dark:text-white">StayLynk does not hold, collect, or process any payments between tenants and landlords.</p>
+            <p className="mt-2 text-sm font-medium leading-6 text-slate-700 dark:text-white/60">We are not responsible for refunds, financial disputes, or financial convenience between users. All agreements are strictly between you and the landlord.</p>
+            <p className="mt-2 text-sm font-black text-slate-950 dark:text-white">Stay safe. Stay smart.</p>
           </div>
         </div>
       </section>
 
       <section className="mx-auto max-w-[1480px] px-4 py-5 sm:px-6 lg:px-8">
-        <div className="grid items-center gap-6 overflow-hidden rounded-lg border border-slate-200 bg-blue-50 p-6 md:grid-cols-[0.8fr_1.2fr]">
+        <div className="grid items-center gap-6 overflow-hidden rounded-lg border border-slate-200 bg-blue-50 p-6 dark:border-white/[0.07] dark:bg-violet-500/[0.06] md:grid-cols-[0.8fr_1.2fr]">
           <img
             src="https://images.unsplash.com/photo-1551650975-87deedd944c3?auto=format&fit=crop&w=900&q=82"
             alt="Mobile property search app"
@@ -100,11 +100,11 @@ export default function HowItWorksPage() {
             className="aspect-[16/10] w-full rounded-lg object-cover"
           />
           <div>
-            <h2 className="text-2xl font-black text-slate-950">Ready to find your new home?</h2>
-            <p className="mt-2 max-w-2xl text-sm font-medium leading-6 text-slate-600">Join thousands of happy renters who found their perfect home on StayLynk.</p>
+            <h2 className="text-2xl font-black text-slate-950 dark:text-white">Ready to find your new home?</h2>
+            <p className="mt-2 max-w-2xl text-sm font-medium leading-6 text-slate-600 dark:text-white/50">Join thousands of happy renters who found their perfect home on StayLynk.</p>
             <div className="mt-5 flex flex-wrap gap-3">
-              <Link to="/browse" className="rounded-lg bg-blue-600 px-5 py-3 text-sm font-black text-white">Browse Properties</Link>
-              <Link to="/list-property" className="rounded-lg border border-blue-600 px-5 py-3 text-sm font-black text-blue-600">List Your Property</Link>
+              <Link to="/browse" className="rounded-lg bg-blue-600 px-5 py-3 text-sm font-black text-white hover:bg-blue-500 dark:bg-violet-600 dark:hover:bg-violet-500">Browse Properties</Link>
+              <Link to="/list-property" className="rounded-lg border border-blue-600 px-5 py-3 text-sm font-black text-blue-600 dark:border-violet-500/50 dark:text-violet-300 dark:hover:bg-violet-500/10">List Your Property</Link>
             </div>
           </div>
         </div>

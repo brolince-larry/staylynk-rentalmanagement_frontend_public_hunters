@@ -2,7 +2,9 @@ import { Suspense, lazy, Component, type ErrorInfo, type ReactNode } from 'react
 import { BrowserRouter, Routes, Route, Navigate, useLocation } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Navbar } from './components/layout/Navbar';
-import { AIAssistant } from './components/public/AIAssistant';
+// AI chat assistant — disabled on the public frontend until v2 (AI is admin-only
+// on the backend for now). Re-enable this import alongside AIAssistantFab below.
+// import { AIAssistant } from './components/public/AIAssistant';
 
 // ─── QueryClient — configured to prevent double-fetching ─────────────────────
 const queryClient = new QueryClient({
@@ -29,9 +31,11 @@ const AboutPage = lazy(() => import('./pages/AboutPage'));
 const LegalPage = lazy(() => import('./pages/LegalPage'));
 const ComparePage = lazy(() => import('./pages/ComparePage'));
 const ListPropertyPage = lazy(() => import('./pages/ListPropertyPage'));
-const AIPage = lazy(() => import('./pages/AIPage'));
-const HunterPage = lazy(() => import('./pages/HunterPage'));
-const FindPage = lazy(() => import('./pages/FindPage'));
+// AI chat pages — unrouted until v2. Restore these lazy imports and the
+// matching <Route> entries below to bring them back.
+// const AIPage = lazy(() => import('./pages/AIPage'));
+// const HunterPage = lazy(() => import('./pages/HunterPage'));
+// const FindPage = lazy(() => import('./pages/FindPage'));
 
 // ─── Page loader skeleton ────────────────────────────────────────────────────
 function PageLoader() {
@@ -90,11 +94,14 @@ function RouteErrorBoundary({ children }: { children: ReactNode }) {
   return <ErrorBoundary resetKey={location.pathname}>{children}</ErrorBoundary>;
 }
 
-function AIAssistantFab() {
-  const location = useLocation();
-  if (location.pathname === '/ai' || location.pathname === '/hunter' || location.pathname === '/find') return null;
-  return <AIAssistant />;
-}
+// Floating AI assistant — disabled on the public frontend until v2. Restore
+// the AIAssistant import above and the <AIAssistantFab /> usage below to
+// bring it back once AI is enabled for public hunters on the backend.
+// function AIAssistantFab() {
+//   const location = useLocation();
+//   if (location.pathname === '/ai' || location.pathname === '/hunter' || location.pathname === '/find') return null;
+//   return <AIAssistant />;
+// }
 
 // ─── App ──────────────────────────────────────────────────────────────────────
 export default function App() {
@@ -119,14 +126,15 @@ export default function App() {
               <Route path="/privacy" element={<LegalPage />} />
               <Route path="/terms" element={<LegalPage />} />
               <Route path="/safety" element={<LegalPage />} />
-              <Route path="/ai" element={<AIPage />} />
-              <Route path="/hunter" element={<HunterPage />} />
-              <Route path="/find" element={<FindPage />} />
+              {/* AI chat routes — unrouted until v2, see lazy imports above */}
+              {/* <Route path="/ai" element={<AIPage />} /> */}
+              {/* <Route path="/hunter" element={<HunterPage />} /> */}
+              {/* <Route path="/find" element={<FindPage />} /> */}
               <Route path="*"       element={<Navigate to="/" replace />} />
             </Routes>
           </Suspense>
         </RouteErrorBoundary>
-        <AIAssistantFab />
+        {/* <AIAssistantFab /> */}
       </BrowserRouter>
     </QueryClientProvider>
   );
