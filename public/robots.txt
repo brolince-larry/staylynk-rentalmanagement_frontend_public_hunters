@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /list-property
+
+Sitemap: https://staylynk.co.ke/sitemap.xml

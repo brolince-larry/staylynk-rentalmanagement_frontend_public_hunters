@@ -1,5 +1,6 @@
 import { Link, useLocation } from 'react-router-dom';
 import { PublicFooter } from '../components/layout/PublicFooter';
+import { Seo } from '../components/seo/Seo';
 
 const content = {
   '/privacy': {
@@ -42,6 +43,11 @@ export default function LegalPage() {
 
   return (
     <main className="min-h-screen bg-white">
+      <Seo
+        title={`${page.title} | StayLynk`}
+        description={page.intro}
+        canonicalPath={location.pathname}
+      />
       <section className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8">
         <Link to="/" className="text-sm font-black text-blue-600">StayLynk</Link>
         <h1 className="mt-5 text-4xl font-black text-slate-950">{page.title}</h1>

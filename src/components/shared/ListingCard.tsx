@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo, type ReactElement } from 'react';
 import { Link } from 'react-router-dom';
 import type { Listing } from '../../types';
 import { useVacancyState } from '../../hooks/useRealtimeListings';
@@ -37,34 +37,65 @@ export const ListingCard = memo(function ListingCard({ listing, variant = 'brows
   const publishedAgo   = listing.visibility?.published_ago ?? 'Recently listed';
   const { isAvailable, isRealtime } = useVacancyState(listing.id, unitsAvailable);
 
-  // ── Featured (vertical card) ──────────────────────────────────────────────
+  // ── Featured (vertical card, flips on hover to reveal quick facts) ────────
   if (variant === 'featured') {
+    const backFacts = [
+      beds.max > 0      && { icon: <BedIcon />,     label: `${specRange(beds)} Bed${beds.max !== 1 ? 's' : ''}` },
+      baths.max > 0     && { icon: <BathIcon />,    label: `${specRange(baths)} Bath${baths.max !== 1 ? 's' : ''}` },
+      features.parking  && { icon: <ParkingIcon />, label: 'Parking' },
+      features.water    && { icon: <WaterIcon />,   label: 'Water' },
+      features.internet && { icon: <WifiIcon />,    label: 'WiFi' },
+    ].filter((f): f is { icon: ReactElement; label: string } => !!f).slice(0, 4);
+
     return (
-      <div className={`flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:border-violet-200 hover:shadow-xl hover:shadow-slate-200/60 dark:border-white/[0.07] dark:bg-[#141421] dark:hover:border-violet-500/30 dark:hover:shadow-black/40 ${!isAvailable ? 'opacity-60' : ''}`}>
-        <Link to={`/listing/${slug}`} className="group relative block aspect-[4/3] overflow-hidden bg-slate-100 dark:bg-white/[0.05]">
-          {isFeatured && (
-            <span className="absolute left-2.5 top-2.5 z-10 rounded-md bg-violet-600 px-2 py-1 text-[10px] font-black uppercase text-white shadow-sm">
-              FEATURED
-            </span>
-          )}
-          {cover
-            ? <SmartImage src={cover} alt={title} aspectRatio="4 / 3" sizes="(max-width: 768px) 92vw, 360px" loadMargin="260px" className="h-full w-full" imgClassName="group-hover:scale-105 transition-transform duration-300" />
-            : <NoImagePlaceholder />}
-          <MediaBadges imageCount={imageCount} videoCount={videoCount} className="left-2.5" />
-          <button
-            className={`absolute right-2 top-2 flex h-8 w-8 items-center justify-center rounded-full shadow-sm transition-all ${
-              saved ? 'bg-red-50 dark:bg-red-900/30' : 'bg-white/90 hover:bg-white dark:bg-black/40 dark:hover:bg-black/60'
-            }`}
-            onClick={e => { e.preventDefault(); toggleSaved(slug); }}
-            aria-label={saved ? 'Remove from saved' : 'Save listing'}
-          >
-            <HeartIcon filled={saved} />
-          </button>
-          {!isAvailable && (
-            <div className="absolute inset-0 flex items-center justify-center bg-black/45">
-              <span className="text-sm font-semibold text-white">Not Available</span>
+      <div className={`group/flip flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:border-brand-200 hover:shadow-premium-sm dark:border-white/[0.07] dark:bg-[#141421] dark:hover:border-brand-500/30 ${!isAvailable ? 'opacity-60' : ''}`}>
+        <Link to={`/listing/${slug}`} className="perspective-1200 relative block aspect-[4/3] overflow-hidden bg-slate-100 dark:bg-white/[0.05]">
+          <div className="preserve-3d relative h-full w-full transition-transform duration-700 ease-premium group-hover/flip:rotate-y-180">
+
+            {/* ── Front face ────────────────────────────────────────────────── */}
+            <div className="group absolute inset-0 backface-hidden">
+              {isFeatured && (
+                <span className="absolute left-2.5 top-2.5 z-10 rounded-md bg-brand-600 px-2 py-1 text-[10px] font-black uppercase text-white shadow-sm">
+                  FEATURED
+                </span>
+              )}
+              {cover
+                ? <SmartImage src={cover} alt={title} aspectRatio="4 / 3" sizes="(max-width: 768px) 92vw, 360px" loadMargin="260px" className="h-full w-full" imgClassName="group-hover:scale-105 transition-transform duration-300" />
+                : <NoImagePlaceholder />}
+              <MediaBadges imageCount={imageCount} videoCount={videoCount} className="left-2.5" />
+              <button
+                className={`absolute right-2 top-2 z-10 flex h-8 w-8 items-center justify-center rounded-full shadow-sm transition-all ${
+                  saved ? 'bg-red-50 dark:bg-red-900/30' : 'bg-white/90 hover:bg-white dark:bg-black/40 dark:hover:bg-black/60'
+                }`}
+                onClick={e => { e.preventDefault(); toggleSaved(slug); }}
+                aria-label={saved ? 'Remove from saved' : 'Save listing'}
+              >
+                <HeartIcon filled={saved} />
+              </button>
+              {!isAvailable && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/45">
+                  <span className="text-sm font-semibold text-white">Not Available</span>
+                </div>
+              )}
             </div>
-          )}
+
+            {/* ── Back face — quick facts revealed on hover ────────────────────── */}
+            <div className="absolute inset-0 flex rotate-y-180 flex-col items-center justify-center gap-4 bg-brand-gradient p-5 text-center backface-hidden">
+              <p className="text-xs font-black uppercase tracking-wide text-white/70">At a glance</p>
+              <div className="grid w-full max-w-[220px] grid-cols-2 gap-2.5">
+                {backFacts.length > 0
+                  ? backFacts.map(f => (
+                      <div key={f.label} className="flex items-center gap-1.5 rounded-lg bg-white/15 px-2.5 py-2 text-xs font-bold text-white backdrop-blur">
+                        {f.icon}{f.label}
+                      </div>
+                    ))
+                  : <p className="col-span-2 text-xs font-semibold text-white/70">Details on the full listing page</p>}
+              </div>
+              <span className="mt-1 inline-flex items-center gap-1.5 rounded-full bg-white px-4 py-2 text-xs font-black text-brand-700">
+                View full details <ArrowRightIcon />
+              </span>
+            </div>
+          </div>
         </Link>
 
         <div className="flex flex-col gap-2 p-4">
@@ -99,7 +130,7 @@ export const ListingCard = memo(function ListingCard({ listing, variant = 'brows
                 href={mapsUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-1 text-xs font-black text-violet-600 hover:underline dark:text-violet-400"
+                className="flex items-center gap-1 text-xs font-black text-brand-600 hover:underline dark:text-brand-400"
               >
                 <PinIcon />View location
               </a>
@@ -275,6 +306,7 @@ const WifiIcon    = () => <svg className="inline shrink-0" width="12" height="12
 const ParkingIcon = () => <svg className="inline shrink-0" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 17V7h4a3 3 0 010 6H9"/></svg>;
 const CheckIcon   = () => <svg className="inline shrink-0" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>;
 const VerifiedIcon= () => <svg className="inline shrink-0" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>;
+const ArrowRightIcon = () => <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>;
 const NoImagePlaceholder = () => (
   <div className="absolute inset-0 flex items-center justify-center bg-gradient-to-br from-slate-900 to-slate-800 dark:from-[#0e0e1a] dark:to-slate-900">
     <svg className="h-12 w-12 text-white/10" fill="none" viewBox="0 0 24 24" stroke="currentColor">

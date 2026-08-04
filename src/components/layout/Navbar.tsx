@@ -3,7 +3,7 @@ import { Link, NavLink, useLocation } from 'react-router-dom';
 import { ChevronDown, Menu, Moon, Play, Search, Sun, X } from 'lucide-react';
 import { SmartImage } from '../media/SmartImage';
 import { useTheme } from '../../hooks/useTheme';
-import logoUrl from '../../assets/logo.svg';
+import logoUrl from '../../assets/logo.png';
 import type { MediaItem } from '../../types';
 
 const FULL_SCREEN_ROUTES = ['/ai', '/hunter', '/find'];

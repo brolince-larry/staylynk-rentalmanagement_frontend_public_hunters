@@ -5,6 +5,7 @@ import { SmartImage } from '../components/media/SmartImage';
 import { CompareButton } from '../components/shared/CompareButton';
 import { toArray } from '../utils/collection';
 import type { Listing } from '../types';
+import { Seo } from '../components/seo/Seo';
 
 export default function ComparePage() {
   const { data: bucket, isLoading, isError, refetch } = useCompareBucket();
@@ -13,6 +14,11 @@ export default function ComparePage() {
 
   return (
     <main className="min-h-screen bg-slate-50 dark:bg-[#0d0d14]">
+      <Seo
+        title="Compare Rentals | StayLynk"
+        description="Compare rooms, prices, availability, and features side by side before choosing where to move."
+        canonicalPath="/compare"
+      />
       <section className="mx-auto max-w-[1480px] px-4 py-8 sm:px-6 lg:px-8">
         <div className="mb-6 flex flex-wrap items-end justify-between gap-4">
           <div>

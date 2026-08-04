@@ -9,7 +9,7 @@ interface SeoProps {
 }
 
 export function Seo({ title, description, canonicalPath = '/', image, jsonLd }: SeoProps) {
-  const origin = typeof window === 'undefined' ? 'https://rockyrent.co.ke' : window.location.origin;
+  const origin = typeof window === 'undefined' ? 'https://staylynk.co.ke' : window.location.origin;
   const canonical = `${origin}${canonicalPath}`;
   const payload = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
 

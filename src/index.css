@@ -68,6 +68,49 @@
   .dark .select-caret {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23a0aec0' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
   }
+
+  /* ── 3D flip cards (ListingCard featured variant) ────────────────────── */
+  .perspective-1200 {
+    perspective: 1200px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  .backface-hidden {
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+  }
+  .rotate-y-180 {
+    transform: rotateY(180deg);
+  }
+
+  /* ── Testimonials marquee ─────────────────────────────────────────────── */
+  .marquee-pause:hover {
+    animation-play-state: paused;
+  }
+  .marquee-fade {
+    -webkit-mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+    mask-image: linear-gradient(to right, transparent, black 6%, black 94%, transparent);
+  }
+
+  /* ── Premium shimmer sweep, used on hover states / skeleton accents ──── */
+  .shimmer-sweep {
+    background-image: linear-gradient(
+      110deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.35) 50%,
+      transparent 70%
+    );
+    background-size: 250% 100%;
+  }
+  .dark .shimmer-sweep {
+    background-image: linear-gradient(
+      110deg,
+      transparent 30%,
+      rgba(255, 255, 255, 0.12) 50%,
+      transparent 70%
+    );
+  }
 }
 
 @keyframes ai-orb-pulse {
@@ -94,5 +137,11 @@
   .ai-orb-thinking .ai-orb-image,
   .ai-launcher-ping {
     animation: none;
+  }
+  .animate-marquee {
+    animation: none;
+  }
+  .perspective-1200 .preserve-3d {
+    transition: none !important;
   }
 }

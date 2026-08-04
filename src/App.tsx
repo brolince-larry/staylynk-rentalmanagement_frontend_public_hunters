@@ -30,7 +30,6 @@ const ContactPage = lazy(() => import('./pages/ContactPage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const LegalPage = lazy(() => import('./pages/LegalPage'));
 const ComparePage = lazy(() => import('./pages/ComparePage'));
-const ListPropertyPage = lazy(() => import('./pages/ListPropertyPage'));
 // AI chat pages — unrouted until v2. Restore these lazy imports and the
 // matching <Route> entries below to bring them back.
 // const AIPage = lazy(() => import('./pages/AIPage'));
@@ -122,7 +121,6 @@ export default function App() {
               <Route path="/contact" element={<ContactPage />} />
               <Route path="/about" element={<AboutPage />} />
               <Route path="/compare" element={<ComparePage />} />
-              <Route path="/list-property" element={<ListPropertyPage />} />
               <Route path="/privacy" element={<LegalPage />} />
               <Route path="/terms" element={<LegalPage />} />
               <Route path="/safety" element={<LegalPage />} />

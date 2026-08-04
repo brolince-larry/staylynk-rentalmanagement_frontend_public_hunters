@@ -1,8 +1,9 @@
 import { Link } from 'react-router-dom';
-import { Globe2 } from 'lucide-react';
-import logoUrl from '../../assets/logo.svg';
+import { Globe2, MessageCircle } from 'lucide-react';
+import logoUrl from '../../assets/logo.png';
+import { useSiteSettings } from '../../api/siteApi';
 
-const footerGroups = [
+const staticFooterGroups = [
   {
     title: 'Quick Links',
     links: [
@@ -22,28 +23,11 @@ const footerGroups = [
     ],
   },
   {
-    title: 'For Landlords',
-    links: [
-      { label: 'List Property',   to: '/list-property' },
-      { label: 'Landlord Sign up', to: '/list-property' },
-      { label: 'Resources',        to: '/how-it-works' },
-      { label: 'Support',          to: '/contact' },
-    ],
-  },
-  {
     title: 'Legal',
     links: [
       { label: 'Terms & Conditions', to: '/terms' },
       { label: 'Privacy Policy',     to: '/privacy' },
       { label: 'Safety Policy',      to: '/safety' },
-    ],
-  },
-  {
-    title: 'Contact Us',
-    links: [
-      { label: '+254 700 123 456',   to: '/contact' },
-      { label: 'hello@staylynk.com', to: '/contact' },
-      { label: 'Westlands, Nairobi', to: '/contact' },
     ],
   },
 ];
@@ -91,6 +75,8 @@ const socialLinks = [
 ];
 
 export function PublicFooter() {
+  const { data: settings } = useSiteSettings();
+
   return (
     <footer className="border-t border-slate-200 bg-white dark:border-white/[0.07] dark:bg-[#141421]">
       <div className="mx-auto grid max-w-[1480px] gap-8 px-4 py-10 sm:px-6 md:grid-cols-3 lg:grid-cols-[1.2fr_repeat(5,1fr)] lg:px-8">
@@ -117,11 +103,22 @@ export function PublicFooter() {
                 {link.icon}
               </a>
             ))}
+            {settings?.whatsapp_url && (
+              <a
+                href={settings.whatsapp_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Chat with us on WhatsApp"
+                className="flex h-8 w-8 items-center justify-center rounded-lg border border-slate-200 text-slate-500 transition hover:border-emerald-300 hover:bg-emerald-50 hover:text-emerald-600 dark:border-white/[0.08] dark:text-white/40 dark:hover:border-emerald-500/30 dark:hover:bg-emerald-500/10 dark:hover:text-emerald-400"
+              >
+                <MessageCircle size={15} />
+              </a>
+            )}
           </div>
         </div>
 
         {/* Link groups */}
-        {footerGroups.map(group => (
+        {staticFooterGroups.map(group => (
           <div key={group.title}>
             <h3 className="text-[11px] font-black uppercase tracking-wider text-slate-950 dark:text-white/90">
               {group.title}
@@ -139,6 +136,72 @@ export function PublicFooter() {
             </div>
           </div>
         ))}
+
+        {/* For Landlords — sign-up link is backend-sourced and always opens
+            the app subdomain in a new tab, so it can't be repointed by
+            editing frontend code. */}
+        <div>
+          <h3 className="text-[11px] font-black uppercase tracking-wider text-slate-950 dark:text-white/90">
+            For Landlords
+          </h3>
+          <div className="mt-4 flex flex-col gap-3">
+            {settings?.landlord_portal_url && (
+              <a
+                href={settings.landlord_portal_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm font-medium text-slate-500 transition hover:text-violet-600 dark:text-white/40 dark:hover:text-violet-400"
+              >
+                Landlord Sign up
+              </a>
+            )}
+            <Link
+              to="/how-it-works"
+              className="text-sm font-medium text-slate-500 transition hover:text-violet-600 dark:text-white/40 dark:hover:text-violet-400"
+            >
+              Resources
+            </Link>
+            <Link
+              to="/contact"
+              className="text-sm font-medium text-slate-500 transition hover:text-violet-600 dark:text-white/40 dark:hover:text-violet-400"
+            >
+              Support
+            </Link>
+          </div>
+        </div>
+
+        {/* Contact Us — backend-sourced, real tel:/mailto: links */}
+        <div>
+          <h3 className="text-[11px] font-black uppercase tracking-wider text-slate-950 dark:text-white/90">
+            Contact Us
+          </h3>
+          <div className="mt-4 flex flex-col gap-3">
+            {settings?.support_phone && (
+              <a
+                href={`tel:${settings.support_phone}`}
+                className="text-sm font-medium text-slate-500 transition hover:text-violet-600 dark:text-white/40 dark:hover:text-violet-400"
+              >
+                {settings.support_phone_display || settings.support_phone}
+              </a>
+            )}
+            {settings?.support_email && (
+              <a
+                href={`mailto:${settings.support_email}`}
+                className="text-sm font-medium text-slate-500 transition hover:text-violet-600 dark:text-white/40 dark:hover:text-violet-400"
+              >
+                {settings.support_email}
+              </a>
+            )}
+            {settings?.office_address && (
+              <Link
+                to="/contact"
+                className="text-sm font-medium text-slate-500 transition hover:text-violet-600 dark:text-white/40 dark:hover:text-violet-400"
+              >
+                {settings.office_address}
+              </Link>
+            )}
+          </div>
+        </div>
       </div>
 
       {/* Bottom bar */}

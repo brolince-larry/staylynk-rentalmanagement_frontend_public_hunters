@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { CalendarDays, CheckSquare, Heart, Lock, MessageSquare, Search, ShieldCheck, Zap } from 'lucide-react';
 import { PublicFooter } from '../components/layout/PublicFooter';
+import { Seo } from '../components/seo/Seo';
 
 const steps = [
   { icon: <Search size={28} />, title: '1. Search Properties', text: 'Browse thousands of verified properties that match your preferences.' },
@@ -20,6 +21,11 @@ const benefits = [
 export default function HowItWorksPage() {
   return (
     <main className="min-h-screen bg-white dark:bg-[#0d0d14]">
+      <Seo
+        title="How StayLynk Works | Search, Compare, Book"
+        description="See how StayLynk works: search verified rentals, compare listings, contact landlords, schedule a viewing, and move in."
+        canonicalPath="/how-it-works"
+      />
       <section className="mx-auto grid max-w-[1480px] items-center gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1.05fr_0.95fr] lg:px-8">
         <div>
           <span className="inline-flex rounded-full bg-blue-50 px-3 py-1 text-[11px] font-black uppercase text-blue-700 dark:bg-violet-500/15 dark:text-violet-300">Simple, fast & reliable</span>
@@ -104,7 +110,6 @@ export default function HowItWorksPage() {
             <p className="mt-2 max-w-2xl text-sm font-medium leading-6 text-slate-600 dark:text-white/50">Join thousands of happy renters who found their perfect home on StayLynk.</p>
             <div className="mt-5 flex flex-wrap gap-3">
               <Link to="/browse" className="rounded-lg bg-blue-600 px-5 py-3 text-sm font-black text-white hover:bg-blue-500 dark:bg-violet-600 dark:hover:bg-violet-500">Browse Properties</Link>
-              <Link to="/list-property" className="rounded-lg border border-blue-600 px-5 py-3 text-sm font-black text-blue-600 dark:border-violet-500/50 dark:text-violet-300 dark:hover:bg-violet-500/10">List Your Property</Link>
             </div>
           </div>
         </div>

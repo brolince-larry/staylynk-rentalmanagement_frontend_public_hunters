@@ -1,6 +1,8 @@
 import { Link } from 'react-router-dom';
 import { Check, Gem, Home, Lock, MapPin, Search, ShieldCheck, Users, Zap } from 'lucide-react';
 import { PublicFooter } from '../components/layout/PublicFooter';
+import { Seo } from '../components/seo/Seo';
+import { ORGANIZATION_SCHEMA } from '../utils/schema';
 
 const stats = [
   { icon: <Home size={25} />, value: '25K+', label: 'Properties Listed' },
@@ -27,6 +29,12 @@ const testimonials = [
 export default function AboutPage() {
   return (
     <main className="min-h-screen bg-white dark:bg-[#0d0d14]">
+      <Seo
+        title="About StayLynk | Verified Rental Listings in Kenya"
+        description="StayLynk connects renters and landlords across Kenya with verified listings, video tours, and direct booking. Learn how we work and what we stand for."
+        canonicalPath="/about"
+        jsonLd={ORGANIZATION_SCHEMA}
+      />
       <section className="mx-auto grid max-w-[1480px] items-center gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1fr_1fr] lg:px-8">
         <div>
           <span className="inline-flex rounded-full bg-blue-50 px-3 py-1 text-[11px] font-black uppercase text-blue-700 dark:bg-violet-500/15 dark:text-violet-300">Our Story</span>
@@ -40,10 +48,6 @@ export default function AboutPage() {
             <Link to="/browse" className="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-5 py-3 text-sm font-black text-white hover:bg-blue-500 dark:bg-violet-600 dark:hover:bg-violet-500">
               <Search size={15} />
               Browse Properties
-            </Link>
-            <Link to="/list-property" className="inline-flex items-center gap-2 rounded-lg border border-blue-600 px-5 py-3 text-sm font-black text-blue-600 dark:border-violet-500/50 dark:text-violet-300 dark:hover:bg-violet-500/10">
-              <Home size={15} />
-              List Your Property
             </Link>
           </div>
         </div>
@@ -142,7 +146,6 @@ export default function AboutPage() {
           </div>
           <div className="flex flex-wrap gap-3">
             <Link to="/browse" className="rounded-lg bg-white px-5 py-3 text-sm font-black text-blue-700 hover:bg-white/90 dark:text-violet-700">Browse Properties</Link>
-            <Link to="/list-property" className="rounded-lg border border-white/60 px-5 py-3 text-sm font-black text-white hover:bg-white/10">List Your Property</Link>
           </div>
         </div>
       </section>

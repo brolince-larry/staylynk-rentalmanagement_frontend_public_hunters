@@ -9,7 +9,6 @@ import { BrowseFilters } from '../components/browse/BrowseFilters';
 import { ListingCard } from '../components/shared/ListingCard';
 import { BrowseCardSkeleton } from '../components/shared/Skeletons';
 // AI search box — disabled on the public frontend until v2, see PlainSearchBox.
-// import { AISearchBox } from '../components/public/AISearchBox';
 import { PlainSearchBox } from '../components/public/PlainSearchBox';
 import { Seo } from '../components/seo/Seo';
 import type { Listing } from '../types';
