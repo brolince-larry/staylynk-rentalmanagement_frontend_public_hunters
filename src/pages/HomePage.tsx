@@ -81,17 +81,6 @@ export default function HomePage() {
       <Seo
         title="StayLynk | Verified House Hunting in Kenya"
         description="Find verified rentals with smart search, short video tours, smart filters, maps, and viewing booking on StayLynk."
-        jsonLd={{
-          '@context': 'https://schema.org',
-          '@type': 'WebSite',
-          name: 'StayLynk',
-          url: typeof window === 'undefined' ? 'https://staylynk.co.ke' : window.location.origin,
-          potentialAction: {
-            '@type': 'SearchAction',
-            target: `${typeof window === 'undefined' ? 'https://staylynk.co.ke' : window.location.origin}/browse?search={search_term_string}`,
-            'query-input': 'required name=search_term_string',
-          },
-        }}
       />
 
       {/* ── Hero ─────────────────────────────────────────────────────────────── */}

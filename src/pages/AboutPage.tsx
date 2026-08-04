@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { Check, Gem, Home, Lock, MapPin, Search, ShieldCheck, Users, Zap } from 'lucide-react';
 import { PublicFooter } from '../components/layout/PublicFooter';
 import { Seo } from '../components/seo/Seo';
-import { ORGANIZATION_SCHEMA } from '../utils/schema';
+import { buildBreadcrumbSchema } from '../utils/schema';
 
 const stats = [
   { icon: <Home size={25} />, value: '25K+', label: 'Properties Listed' },
@@ -33,7 +33,10 @@ export default function AboutPage() {
         title="About StayLynk | Verified Rental Listings in Kenya"
         description="StayLynk connects renters and landlords across Kenya with verified listings, video tours, and direct booking. Learn how we work and what we stand for."
         canonicalPath="/about"
-        jsonLd={ORGANIZATION_SCHEMA}
+        jsonLd={buildBreadcrumbSchema([
+          { name: 'Home', path: '/' },
+          { name: 'About', path: '/about' },
+        ])}
       />
       <section className="mx-auto grid max-w-[1480px] items-center gap-8 px-4 py-12 sm:px-6 lg:grid-cols-[1fr_1fr] lg:px-8">
         <div>

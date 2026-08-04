@@ -38,12 +38,37 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "StayLynk",
-      "url": "https://staylynk.co.ke",
-      "logo": "https://staylynk.co.ke/android-chrome-512x512.png",
-      "description": "StayLynk is a verified rental listings platform for Kenya. Renters search houses, hostels, and rooms by location, price, and amenities, watch short video tours, compare listings side by side, and book viewings directly with landlords.",
-      "areaServed": { "@type": "Country", "name": "Kenya" }
+      "@graph": [
+        {
+          "@type": ["Organization", "RealEstateAgent"],
+          "@id": "https://staylynk.co.ke/#organization",
+          "name": "StayLynk",
+          "alternateName": "StayLynk Kenya",
+          "url": "https://staylynk.co.ke",
+          "logo": "https://staylynk.co.ke/android-chrome-512x512.png",
+          "description": "StayLynk is a verified real estate and rental property platform for Kenya. Renters search houses, apartments, hostels, and rooms by location, price, and amenities, watch short video tours, compare listings side by side, and book viewings directly with landlords and property managers.",
+          "disambiguatingDescription": "StayLynk (staylynk.co.ke) is a Kenya-based rental property listings platform. It is not affiliated with Staylink Africa, Speedlynk, or any hotel revenue management company of a similar name.",
+          "areaServed": { "@type": "Country", "name": "Kenya" },
+          "sameAs": [
+            "https://www.instagram.com/staylynk.ke",
+            "https://www.facebook.com/staylynk.ke",
+            "https://www.linkedin.com/company/staylynk-ke",
+            "https://twitter.com/staylynk_ke"
+          ]
+        },
+        {
+          "@type": "WebSite",
+          "@id": "https://staylynk.co.ke/#website",
+          "url": "https://staylynk.co.ke",
+          "name": "StayLynk",
+          "publisher": { "@id": "https://staylynk.co.ke/#organization" },
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://staylynk.co.ke/browse?search={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }
+      ]
     }
     </script>
   </head>
