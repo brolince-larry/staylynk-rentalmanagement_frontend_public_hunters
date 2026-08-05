@@ -1,0 +1,78 @@
+name: CI - Build & Smoke Test
+
+on:
+  pull_request:
+    branches: [master]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build production bundle
+        run: npm run build
+        env:
+          VITE_API_BASE_URL: https://api.staylynk.co.ke
+          VITE_REVERB_HOST: ws.staylynk.co.ke
+          VITE_REVERB_PORT: 443
+          VITE_REVERB_SCHEME: wss
+          VITE_MANAGEMENT_APP_URL: https://app.staylynk.co.ke
+          VITE_SUPPORT_EMAIL: support@staylynk.co.ke
+
+      - name: Verify API URL is baked into bundle
+        run: |
+          if ! grep -r "api.staylynk.co.ke" dist/assets/*.js; then
+            echo "FAIL: api.staylynk.co.ke not found in build output - VITE_API_BASE_URL was not embedded"
+            exit 1
+          fi
+          echo "PASS: API base URL correctly embedded in bundle"
+
+      - name: Build Docker image
+        run: docker build -t staylynk-public:ci-test .
+
+      - name: Run container for smoke test
+        run: |
+          docker run -d --name smoke-test -p 8080:80 staylynk-public:ci-test
+          sleep 3
+
+      - name: Smoke test - homepage loads
+        run: |
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" http://localhost:8080/)
+          if [ "$STATUS" != "200" ]; then
+            echo "FAIL: homepage returned $STATUS"
+            exit 1
+          fi
+          echo "PASS: homepage returned 200"
+
+      - name: Smoke test - title tag present and correct
+        run: |
+          TITLE=$(curl -s http://localhost:8080/ | grep -o '<title>[^<]*</title>')
+          echo "Found title: $TITLE"
+          if [[ "$TITLE" != *"StayLynk"* ]]; then
+            echo "FAIL: title tag missing or incorrect"
+            exit 1
+          fi
+          echo "PASS: title tag correct"
+
+      - name: Smoke test - schema.org JSON-LD present
+        run: |
+          if ! curl -s http://localhost:8080/ | grep -q "disambiguatingDescription"; then
+            echo "FAIL: schema.org disambiguation missing"
+            exit 1
+          fi
+          echo "PASS: schema present"
+
+      - name: Cleanup
+        if: always()
+        run: docker rm -f smoke-test || true
