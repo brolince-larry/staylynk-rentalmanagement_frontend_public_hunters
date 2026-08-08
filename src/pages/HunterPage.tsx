@@ -277,7 +277,7 @@ type PropertyListItem = {
   rank: number;
   slug: string;
   title: string;
-  house_type: string;
+  house_types: string[];
   rent_min: number;
   rent_max: number;
   neighbourhood?: string;

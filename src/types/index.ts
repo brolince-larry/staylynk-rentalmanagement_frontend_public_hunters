@@ -182,7 +182,7 @@ export interface Listing {
   slug: string;
   title: string;
   description: string | null;
-  house_type: string | null;
+  house_types: string[];
   pricing: ListingPricing;
   units: ListingUnits;
   specs: {
@@ -207,7 +207,7 @@ export interface MapMarker {
   lat: number;
   lng: number;
   price: { min: number; max: number };
-  house_type: string | null;
+  house_types: string[];
   bedrooms: number;
   cover_image: string | null;
   is_featured: boolean;
@@ -466,7 +466,7 @@ export interface AiPropertyResult {
   city?: string | null;
   neighbourhood?: string | null;
   county?: string | null;
-  house_type?: string | null;
+  house_types?: string[];
   bedrooms_min?: number | null;
   bedrooms_max?: number | null;
   amenities?: string[];

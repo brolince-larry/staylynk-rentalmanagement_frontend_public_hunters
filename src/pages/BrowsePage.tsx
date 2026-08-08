@@ -282,7 +282,7 @@ function formatTypeName(type: string): string {
 function GroupedListingResults({ listings }: { listings: Listing[] }) {
   const groups: { type: string; items: Listing[] }[] = [];
   for (const listing of listings) {
-    const type = listing.house_type ?? 'other';
+    const type = listing.house_types?.[0] ?? 'other';
     const last = groups[groups.length - 1];
     if (last && last.type === type) {
       last.items.push(listing);
