@@ -35,6 +35,7 @@ export const ListingCard = memo(function ListingCard({ listing, variant = 'brows
   const isFeatured     = !!listing.visibility?.is_featured;
   const trustBadge     = getTrustBadge(listing.trust);
   const publishedAgo   = listing.visibility?.published_ago ?? 'Recently listed';
+  const houseTypes     = toArray(listing.house_types).map(formatHouseType);
   const { isAvailable, isRealtime } = useVacancyState(listing.id, unitsAvailable);
 
   // ── Featured (vertical card, flips on hover to reveal quick facts) ────────
@@ -108,6 +109,7 @@ export const ListingCard = memo(function ListingCard({ listing, variant = 'brows
             <h3 className="line-clamp-2 text-sm font-black leading-snug text-slate-950 dark:text-white">
               {title}
             </h3>
+            {houseTypes.length > 0 && <HouseTypePills types={houseTypes} />}
             <p className="text-base font-black text-slate-950 dark:text-white">
               {priceDisplay}
             </p>
@@ -174,6 +176,7 @@ export const ListingCard = memo(function ListingCard({ listing, variant = 'brows
               <PinIcon />
               {locationLabel}
             </p>
+            {houseTypes.length > 0 && <HouseTypePills types={houseTypes} className="mt-1.5" />}
             <p className="mt-2 text-lg font-black text-slate-950 dark:text-white">
               {priceDisplay}
             </p>
@@ -257,6 +260,25 @@ function getTrustBadge(trust: Listing['trust'] | null | undefined): TrustBadgeMo
     return { label: 'Verified', tone: 'info', description: 'This listing has verification checks.' };
   }
   return null;
+}
+
+function formatHouseType(value: string): string {
+  return value.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+}
+
+function HouseTypePills({ types, className = '' }: { types: string[]; className?: string }) {
+  return (
+    <div className={`flex flex-wrap gap-1 ${className}`}>
+      {types.map(type => (
+        <span
+          key={type}
+          className="rounded-full bg-slate-100 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-slate-600 dark:bg-white/10 dark:text-white/55"
+        >
+          {type}
+        </span>
+      ))}
+    </div>
+  );
 }
 
 function TrustBadge({ badge, compact = false }: { badge: TrustBadgeModel; compact?: boolean }) {

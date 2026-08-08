@@ -39,7 +39,7 @@ interface MapData {
 interface PropertyCardItem {
   slug: string;
   title: string;
-  house_type?: string;
+  house_types?: string[];
   rent_min: number;
   rent_max?: number;
   city?: string;

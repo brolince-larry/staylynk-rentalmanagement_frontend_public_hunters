@@ -567,7 +567,7 @@ function AiPropertyDetailCard({
   onSuggestion?: (s: string) => void;
 }) {
   const name        = cards.title as string | undefined;
-  const type        = cards.house_type as string | undefined;
+  const types       = (cards.house_types as string[] | undefined) ?? [];
   const city        = cards.city as string | undefined;
   const neighbourhood = cards.neighbourhood as string | undefined;
   const address     = cards.address_display as string | undefined;
@@ -603,10 +603,14 @@ function AiPropertyDetailCard({
       <div className="border-b border-violet-500/15 px-4 py-3">
         <p className="text-[11px] font-black uppercase tracking-wider text-violet-300">Property Details</p>
         {name && <p className="mt-1 text-sm font-black text-white/90">{name}</p>}
-        {type && (
-          <span className="mt-1 inline-block rounded-full bg-violet-500/20 px-2 py-0.5 text-[10px] font-black text-violet-300">
-            {type.replace('_', ' ')}
-          </span>
+        {types.length > 0 && (
+          <div className="mt-1 flex flex-wrap gap-1">
+            {types.map((t) => (
+              <span key={t} className="inline-block rounded-full bg-violet-500/20 px-2 py-0.5 text-[10px] font-black text-violet-300">
+                {t.replace('_', ' ')}
+              </span>
+            ))}
+          </div>
         )}
       </div>
 

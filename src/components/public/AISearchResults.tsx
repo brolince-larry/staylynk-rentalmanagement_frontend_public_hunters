@@ -191,7 +191,7 @@ function ComparisonPanel({ properties, onClose }: { properties: AiPropertyResult
             <CompareRow
               label="Type"
               properties={properties}
-              render={p => p.house_type ?? '—'}
+              render={p => p.house_types?.join(', ') || '—'}
               icon={<BedDouble size={9} />}
             />
             <CompareRow

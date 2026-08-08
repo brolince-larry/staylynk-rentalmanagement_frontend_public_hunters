@@ -73,7 +73,7 @@ export interface HunterListing {
   rent_min: number;
   rent_max: number;
   currency: string;
-  house_type: string;
+  house_types: string[];
   bedrooms_min: number;
   available_units: number;
   cover_image: string | null;
@@ -115,7 +115,7 @@ export interface HunterProperty {
   rent_min: number;
   rent_max: number;
   currency: string;
-  house_type: string;
+  house_types: string[];
   bedrooms_min: number;
   bedrooms_max: number;
   bathrooms_min: number;
@@ -221,7 +221,7 @@ export interface HunterMatchRoom {
   available_from?: string | null;
   verification_status?: string;
   available_units?: number;
-  house_type?: string;
+  house_types?: string[];
   latitude?: number | null;
   longitude?: number | null;
   maps_url?: string | null;

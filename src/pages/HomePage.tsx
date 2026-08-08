@@ -362,13 +362,13 @@ export default function HomePage() {
                 StayLynk helps landlords, property managers, and caretakers manage rent collection, maintenance, vacancies, and tenant communication from one secure platform — while your listings stay visible to verified renters searching StayLynk every day.
               </p>
             </div>
-            <Link
-              to="/list-property"
+            <a
+              href="https://app.staylynk.co.ke/register"
               className="inline-flex h-12 shrink-0 items-center justify-center gap-2 whitespace-nowrap rounded-xl bg-white px-6 text-sm font-black text-slate-950 shadow-md transition hover:bg-white/90"
             >
               Manage your property
               <ArrowRight size={15} />
-            </Link>
+            </a>
           </div>
         </div>
       </section>

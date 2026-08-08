@@ -43,7 +43,9 @@ function formatBedrooms(property: AiPropertyResult): string | null {
 
 function buildFeatureChips(property: AiPropertyResult): Array<{ label: string; icon?: ReactNode }> {
   const chips: Array<{ label: string; icon?: ReactNode }> = [];
-  if (property.house_type) chips.push({ label: property.house_type, icon: <Home size={11} /> });
+  for (const type of property.house_types ?? []) {
+    chips.push({ label: type, icon: <Home size={11} /> });
+  }
   const bedrooms = formatBedrooms(property);
   if (bedrooms) chips.push({ label: bedrooms, icon: <BedDouble size={11} /> });
   if (property.parking_available)   chips.push({ label: 'Parking',          icon: <Car size={11} /> });
