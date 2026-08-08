@@ -48,7 +48,7 @@ export default function ListingDetailPage() {
   const nearbyItems = normalizeNearby(listing?.nearby);
   const similarQuery = useListings({
     city: listing?.location?.city,
-    house_type: listing?.house_type ?? undefined,
+    house_type: listing?.house_types?.[0] ?? undefined,
     sort: 'smart',
     per_page: 4,
   });
@@ -91,7 +91,7 @@ export default function ListingDetailPage() {
   }
 
   const unitsAvailable = listing.units?.available ?? 0;
-  const isShared = isSharedRoomType(listing.house_type);
+  const isShared = isSharedRoomType(listing.house_types);
 
   return (
     <main className="min-h-screen bg-[#09090f] text-white">
@@ -189,7 +189,7 @@ export default function ListingDetailPage() {
               <CompareButton slug={listing.slug ?? listing.id} className="mt-4 w-full" />
 
               <div className="mt-4 grid grid-cols-2 gap-2 text-sm font-semibold text-white/55">
-                <StatPill icon={<Building2 size={13} />} label={formatType(listing.house_type)} />
+                <StatPill icon={<Building2 size={13} />} label={formatType(listing.house_types)} />
                 <StatPill
                   icon={<Bed size={13} />}
                   label={`${listing.units?.total ?? rooms.length} rooms total`}
@@ -320,7 +320,7 @@ export default function ListingDetailPage() {
                   key={room.id}
                   room={room}
                   listing={listing}
-                  houseType={listing.house_type}
+                  houseTypes={listing.house_types}
                   listingCover={listing.media?.cover}
                 />
               ))}
@@ -487,18 +487,18 @@ function ViewingBookingCard({ slug, listing }: { slug: string; listing: Listing 
 function RoomCard({
   room,
   listing,
-  houseType,
+  houseTypes,
   listingCover,
 }: {
   room: PublicVacantRoom;
   listing: Listing;
-  houseType: string | null | undefined;
+  houseTypes: string[] | null | undefined;
   listingCover?: string | MediaItem | null;
 }) {
   const [bookingOpen, setBookingOpen] = useState(false);
   const cover = room.media?.cover || listingCover || '/images/room-placeholder.webp';
   const location = [room.block, room.floor].filter(Boolean).join(' · ');
-  const isShared = isSharedRoomType(houseType);
+  const isShared = isSharedRoomType(houseTypes);
   const availLabel = isShared
     ? room.available_beds > 0
       ? `${room.available_beds} bed${room.available_beds === 1 ? '' : 's'} free`
@@ -607,9 +607,11 @@ function RoomCard({
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
 
-function isSharedRoomType(houseType: string | null | undefined): boolean {
-  return ['hostel', 'dormitory', 'student_hostel'].includes(
-    (houseType ?? '').toLowerCase().replace(/ /g, '_'),
+function isSharedRoomType(houseTypes: string[] | null | undefined): boolean {
+  return (houseTypes ?? []).some((houseType) =>
+    ['hostel', 'dormitory', 'student_hostel'].includes(
+      houseType.toLowerCase().replace(/ /g, '_'),
+    ),
   );
 }
 
@@ -651,7 +653,9 @@ function buildListingGallery(listing: Listing): Array<string | MediaItem> {
   );
 }
 
-function formatType(value?: string | null): string {
-  if (!value) return 'Property';
-  return value.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+function formatType(values?: string[] | null): string {
+  if (!values || values.length === 0) return 'Property';
+  return values
+    .map((value) => value.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase()))
+    .join(', ');
 }
