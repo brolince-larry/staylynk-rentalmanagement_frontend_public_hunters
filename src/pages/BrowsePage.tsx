@@ -243,31 +243,6 @@ export default function BrowsePage() {
             </>
           )}
 
-          {/* Subscribe banner */}
-          <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-white/[0.07] dark:bg-[#141421]">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <div>
-                <h3 className="text-xl font-black text-slate-950 dark:text-white">Get the best homes in your inbox</h3>
-                <p className="mt-1 text-sm font-medium text-slate-500 dark:text-white/45">
-                  Subscribe to get alerts for properties matching your preferences.
-                </p>
-              </div>
-              <form className="flex shrink-0 gap-2 max-sm:w-full" onSubmit={e => e.preventDefault()}>
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="h-11 w-64 rounded-xl border border-slate-200 px-4 text-sm font-medium text-slate-950 placeholder:text-slate-400 transition focus:border-violet-500 focus:outline-none focus:ring-2 focus:ring-violet-100 dark:border-white/[0.08] dark:bg-[#1a1a2c] dark:text-white dark:placeholder:text-white/30 dark:focus:border-violet-500 dark:focus:ring-violet-500/20 max-sm:flex-1"
-                  aria-label="Email for alerts"
-                />
-                <button
-                  type="submit"
-                  className="h-11 whitespace-nowrap rounded-xl bg-violet-600 px-6 text-sm font-black text-white shadow-md shadow-violet-600/25 transition hover:bg-violet-500"
-                >
-                  Subscribe
-                </button>
-              </form>
-            </div>
-          </div>
         </main>
       </div>
     </div>
